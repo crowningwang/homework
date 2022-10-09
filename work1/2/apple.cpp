@@ -14,7 +14,7 @@ using namespace cv;
 */
 int main(int argc, char ** argv)
 {
-    cv::Mat src = cv::imread("/home/wyx/SJTU-RoboMaster/homework/work1/2/apple.png");
+    cv::Mat src = cv::imread("/home/wyx/homework/work1/2/apple.png");
     assert(src.channels() == 3);
 
     //预处理
@@ -45,8 +45,7 @@ int main(int argc, char ** argv)
 	}
 
     imshow("final", src);
+    imwrite("./appel_detect.png",src);
     cv::waitKey(0);
     return 0;
 }
-
-//画一个圆，白的比例最高

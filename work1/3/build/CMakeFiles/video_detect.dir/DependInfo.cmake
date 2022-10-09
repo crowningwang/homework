@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wyx/homework/work1/2/apple.cpp" "/home/wyx/homework/work1/2/build/CMakeFiles/apple.dir/apple.cpp.o"
+  "/home/wyx/homework/work1/3/video_detect.cpp" "/home/wyx/homework/work1/3/build/CMakeFiles/video_detect.dir/video_detect.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

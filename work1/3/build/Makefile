@@ -67,10 +67,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wyx/homework/work1/2
+CMAKE_SOURCE_DIR = /home/wyx/homework/work1/3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wyx/homework/work1/2/build
+CMAKE_BINARY_DIR = /home/wyx/homework/work1/3/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/homework/work1/2/build/CMakeFiles /home/wyx/homework/work1/2/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/homework/work1/3/build/CMakeFiles /home/wyx/homework/work1/3/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/homework/work1/2/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyx/homework/work1/3/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -130,44 +130,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named apple
+# Target rules for targets named video_detect
 
 # Build rule for target.
-apple: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 apple
-.PHONY : apple
+video_detect: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 video_detect
+.PHONY : video_detect
 
 # fast build rule for target.
-apple/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/apple.dir/build.make CMakeFiles/apple.dir/build
-.PHONY : apple/fast
+video_detect/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_detect.dir/build.make CMakeFiles/video_detect.dir/build
+.PHONY : video_detect/fast
 
-apple.o: apple.cpp.o
+video_detect.o: video_detect.cpp.o
 
-.PHONY : apple.o
+.PHONY : video_detect.o
 
 # target to build an object file
-apple.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/apple.dir/build.make CMakeFiles/apple.dir/apple.cpp.o
-.PHONY : apple.cpp.o
+video_detect.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_detect.dir/build.make CMakeFiles/video_detect.dir/video_detect.cpp.o
+.PHONY : video_detect.cpp.o
 
-apple.i: apple.cpp.i
+video_detect.i: video_detect.cpp.i
 
-.PHONY : apple.i
+.PHONY : video_detect.i
 
 # target to preprocess a source file
-apple.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/apple.dir/build.make CMakeFiles/apple.dir/apple.cpp.i
-.PHONY : apple.cpp.i
+video_detect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_detect.dir/build.make CMakeFiles/video_detect.dir/video_detect.cpp.i
+.PHONY : video_detect.cpp.i
 
-apple.s: apple.cpp.s
+video_detect.s: video_detect.cpp.s
 
-.PHONY : apple.s
+.PHONY : video_detect.s
 
 # target to generate assembly for a file
-apple.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/apple.dir/build.make CMakeFiles/apple.dir/apple.cpp.s
-.PHONY : apple.cpp.s
+video_detect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/video_detect.dir/build.make CMakeFiles/video_detect.dir/video_detect.cpp.s
+.PHONY : video_detect.cpp.s
 
 # Help Target
 help:
@@ -177,10 +177,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... apple"
-	@echo "... apple.o"
-	@echo "... apple.i"
-	@echo "... apple.s"
+	@echo "... video_detect"
+	@echo "... video_detect.o"
+	@echo "... video_detect.i"
+	@echo "... video_detect.s"
 .PHONY : help
 
 
