@@ -14,8 +14,12 @@ using namespace cv;
     i. 采用凹六边形进行外轮廓的拟合，然后选取轮廓的中心位置作为弹丸的位置
 
 进行序号标记的方法：
-1. 设置一个全局变量记录
-判断：
+1. 设置一个全局变量记录下每个点的中心坐标all_center
+在一帧里面只有一个center中的情况
+第一个是id=0，然后x值如果一直在减小，那么给这个center标记的还是原来的id，如果出现x值变大，i加一
+如果一帧里面有两个center（center.size()==2）
+那么小的那个是原的i，但是大的是i加一，然后用大的坐标进行判断
+后面写了屎山代码，为了防止连续几帧都有两个球导致id一直增加
 
 */
 int main(int argc, char ** argv)
@@ -23,7 +27,10 @@ int main(int argc, char ** argv)
     VideoCapture video; 
     video.open("/home/wyx/homework/work1/3/IMG_8511.mp4");
     cv::Mat src;
-    int number=0;
+    std::vector<cv::Point2f> all_center;   
+    cv::Point2f last_center;
+    int id=0;
+    int index=0;
     while (true)
     {
         video>>src;
@@ -42,7 +49,7 @@ int main(int argc, char ** argv)
         std::vector<cv::Point2f> center;            //因为同一帧中可能会同时具备两个弹丸，因此center是一个vector
         for (int i = 0; i < contours.size(); ++i)
         {
-		    if (cv::contourArea(contours[i]) < 110) continue; 
+		    if (cv::contourArea(contours[i]) < 130) continue; 
             static cv::Scalar COLOR_LIST = {220, 20, 20};
             drawContours(drawer_counter,contours,i,COLOR_LIST);
             
@@ -54,7 +61,7 @@ int main(int argc, char ** argv)
             if(contour_area*3<rect_area)
             {
                 Mat ploys;
-                approxPolyDP(contours[i],ploys, 6, true);
+                approxPolyDP(contours[i],ploys, 0, true);
                 // draw ploy
                 Vec2i pt1, pt2;
                 double  aver_x = 0;
@@ -80,11 +87,13 @@ int main(int argc, char ** argv)
                     }
                 }
                 center.emplace_back(aver_x,aver_y);
+                all_center.emplace_back(aver_x,aver_y);
             }
             else
             {
                 //长条形完成
                 center.emplace_back(rect.center);
+                all_center.emplace_back(rect.center);
                 cv::Point2f* touchVertices = new cv::Point2f[4];
                 rect.points(touchVertices);
                 for (int i = 0; i < 4; ++i)
@@ -94,15 +103,56 @@ int main(int argc, char ** argv)
                 // std::cout<<"x:"<<center.x<<"y:"<<center.y<<endl;
             }
         }
-        for(int i=0;i<center.size();i++)
+        if(center.size()==0){continue;}
+        if(all_center.size()>1) last_center=all_center.at(all_center.size()-2);
+        else
         {
-            // std::cout<<"x:"<<center[i].x<<"y:"<<center[i].y<<endl;
-            cv::circle(src, center[i], 2, cv::Scalar(255, 255, 255), cv::FILLED);
+            last_center=all_center.at(all_center.size()-1);
         }
-        imshow("src",src);
-        waitKey(1000);
+        if(center.size()==1){
+            if(center[0].x>last_center.x)
+            {
+                id++;
+            }
+            cv::circle(src, center[0], 2, cv::Scalar(255, 255, 255), cv::FILLED);
+            cv::putText(src, "ID: " + to_string(id), center[0],cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+        }
+        else{
+            if(center[0].x<center[1].x)
+            {
+                cv::circle(src, center[0], 2, cv::Scalar(255, 255, 255), cv::FILLED);
+                if(index==0){
+                cv::putText(src, "ID: " + to_string(id), center[0],cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+                id++;
+                }
+                else 
+                {cv::putText(src, "ID: " + to_string(--id), center[0],cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+                id++;}
+                index ++;
+                if(index==4)index=0;
+                cv::circle(src, center[1], 2, cv::Scalar(255, 255, 255), cv::FILLED);
+                cv::putText(src, "ID: " + to_string(id), center[0],cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+            }
+            else
+            {
+                cv::circle(src, center[1], 2, cv::Scalar(255, 255, 255), cv::FILLED);
+                if(index==0){
+                cv::putText(src, "ID: " + to_string(id), center[1],cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+                id++;
+                }
+                else 
+                {cv::putText(src, "ID: " + to_string(--id), center[1],cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+                id++;}
+                index++;
+                if(index==4)index=0;
+                cv::circle(src, center[0], 2, cv::Scalar(255, 255, 255), cv::FILLED);
+                cv::putText(src, "ID: " + to_string(id), center[0],cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);     
+            }
+        }
+        center.clear();
+        cv::imshow("src",src);
+        cv::waitKey(200);
     }
     cv::destroyAllWindows();
     return 0;   
-
 }
