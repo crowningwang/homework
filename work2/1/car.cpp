@@ -33,13 +33,11 @@ int main()
 	srcPts[2] = cv::Point2f(953,413);	//右上
 	srcPts[3] = cv::Point2f(967, 491);	//右下
  
-	//计算原图中四个点的横纵坐标最大值小值,考虑位置特点,无需一一比较
 	int MinX = std::min(srcPts[0].x, srcPts[1].x);	
 	int MaxX = std::max(srcPts[2].x, srcPts[3].x);
 	int MinY = std::min(srcPts[0].y, srcPts[2].y);
 	int MaxY = std::max(srcPts[1].y, srcPts[3].y);
  
-	//根据最大最小坐标值设定目标图像中的矩形四个顶点,注意对应关系
 	cv::Point2f dstPts[4];
 	dstPts[0] = cv::Point2f(0, 0);
 	dstPts[1] = cv::Point2f(0, 140);
