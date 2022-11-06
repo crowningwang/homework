@@ -38,6 +38,7 @@ int main()
 
     cv::Mat rvec, tvec;
     cv::solvePnP(PW_BIG, corners, camera_matrix, distort_matrix, rvec, tvec);
+    // 在相机坐标系下
     // rvec - 输出的旋转向量。使坐标点从世界坐标系旋转到相机坐标系
     // tvec - 输出的平移向量。使坐标点从世界坐标系平移到相机坐标系
     Eigen::Vector3d t_cam;
@@ -51,8 +52,8 @@ int main()
     cv2eigen(rotM,r_1);
     T.rotate(r_1);
     T.translate(t_1);
-    //P_imu=q_c2i*T_w2c*P_cam
-    Vector3d t_imu = q*T*t_1;
+    //P_imu=q_c2i*P_cam
+    Vector3d t_imu = q*t_1;
     for(int i=0;i<3;i++)
     {
         std::cout << "t_imu:" << std::endl << t_imu(i) << std::endl << std::endl;
