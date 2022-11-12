@@ -1,0 +1,3 @@
+/home/wyx/homework/work4/pnp_stitch/build/CMakeFiles/rebuild_cache.dir
+/home/wyx/homework/work4/pnp_stitch/build/CMakeFiles/pnp_stitch.dir
+/home/wyx/homework/work4/pnp_stitch/build/CMakeFiles/edit_cache.dir

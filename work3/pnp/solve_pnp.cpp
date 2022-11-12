@@ -44,14 +44,9 @@ int main()
     Eigen::Vector3d t_cam;
     Eigen::Quaterniond q={ -0.0816168,0.994363,-0.0676645,-0.00122528};
     Eigen::Vector3d t_1;
-    Eigen::Matrix3d r_1;
     cv::Mat rotM;
     Rodrigues(rvec, rotM); 
     Isometry3d T = Isometry3d::Identity();
-    cv2eigen(tvec,t_1);
-    cv2eigen(rotM,r_1);
-    T.rotate(r_1);
-    T.translate(t_1);
     //P_imu=q_c2i*P_cam
     Vector3d t_imu = q*t_1;
     for(int i=0;i<3;i++)
